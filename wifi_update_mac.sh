@@ -1,6 +1,6 @@
 #!/bin/sh
 
-raw="$(/usr/bin/curl -k https://gitlab.com/okokgo/wifi_mac/raw/master/maclist)"
+raw="$(/usr/bin/curl -k https://raw.githubusercontent.com/okokgo/mac_list/master/mac_list)"
 online_mac_md5="$(echo $raw | md5sum | tr -s '\n') "
 old_mac=$(cat mac_md5_list | tr -s '\n')
 
