@@ -1,6 +1,6 @@
 #!/bin/sh
 
-raw="$(/usr/bin/curl -k https://raw.githubusercontent.com/okokgo/mac_list/master/mac_list)"
+raw="$(/usr/bin/curl -k https://gitlab.com/okokgo/wifi_mac/raw/master/maclist)"
 online_mac_md5="$(echo $raw | md5sum | tr -s '\n') "
 old_mac=$(cat mac_md5_list | tr -s '\n')
 
@@ -8,7 +8,7 @@ old_mac=$(cat mac_md5_list | tr -s '\n')
 #69019f3c
 old_md5="${old_mac:0:8}"
 online_md5="${online_mac_md5:0:8}"
-pass_list="68b329da 69019f3c $old_md5"
+pass_list="68b329da 69019f3c 6ac31d39 8f7bd701 $old_md5"
 
 do_action="True"
 for md5 in $pass_list
