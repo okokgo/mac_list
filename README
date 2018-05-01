@@ -1,1 +1,8 @@
-123
+wget https://raw.githubusercontent.com/okokgo/mac_list/master/wifi_update_mac.sh --no-check-certificate -O /www/wifi_update_mac.sh
+* * * * * /bin/sh /www/wifi_update_mac.sh
+
+
+6ac31d39
+68b329da
+69019f3c
+8f7bd701
