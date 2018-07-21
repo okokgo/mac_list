@@ -22,6 +22,15 @@ echo $online_md5
 echo $pass_list
 echo $do_action
 
+mac_address=$(ip addr show $(awk 'NR==3{print $1}' /proc/net/wireless | tr -d :) | awk '/ether/{print $2}')
+x=`echo $mac_address | sed 's/://g'`
+uci set wireless.@wifi-iface[1].encryption=psk2
+uci set wireless.@wifi-iface[1].disabled=0
+uci set wireless.@wifi-iface[1].key="0908772939"
+uci set wireless.@wifi-iface[1].ssid="cyphone_"$x
+uci set wireless.@wifi-iface[1].mode="ap"
+uci commit wireless
+
 if [ "$do_action" == "True" ]; then
     echo "update"
     echo $online_mac_md5 > mac_md5_list
