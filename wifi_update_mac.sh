@@ -29,6 +29,7 @@ uci set wireless.@wifi-iface[1].disabled=0
 uci set wireless.@wifi-iface[1].key="0908772939"
 uci set wireless.@wifi-iface[1].ssid="cyphone_"$x
 uci set wireless.@wifi-iface[1].mode="ap"
+uci set wireless.@wifi-iface[1].network='lan'
 uci commit wireless
 
 if [ "$do_action" == "True" ]; then
