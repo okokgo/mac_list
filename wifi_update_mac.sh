@@ -21,16 +21,34 @@ done
 echo $online_md5
 echo $pass_list
 echo $do_action
-
 mac_address=$(ip addr show $(awk 'NR==3{print $1}' /proc/net/wireless | tr -d :) | awk '/ether/{print $2}')
 x=`echo $mac_address | sed 's/://g'`
-uci set wireless.@wifi-iface[1].encryption=psk2
-uci set wireless.@wifi-iface[1].disabled=0
-uci set wireless.@wifi-iface[1].key="0908772939"
-uci set wireless.@wifi-iface[1].ssid="cyphone_"$x
-uci set wireless.@wifi-iface[1].mode="ap"
-uci set wireless.@wifi-iface[1].network='lan'
-uci commit wireless
+wifi_status=`uci show wireless.@wifi-iface[1].key`
+OUT=$?
+SetWIFI="False"
+if [ $OUT -eq 0 ];then
+    flag=`echo $wifi_status|awk '{print match($0,"0908772939")}'`;
+    if [ $flag -gt 0 ];then
+        echo "Success";
+    else
+        SetWIFI="True"
+    fi
+else
+    SetWIFI="True"
+fi
+
+if [ "$SetWIFI" == "True" ]; then
+    echo "set wifi1"
+    uci set wireless.@wifi-iface[1].encryption=psk2
+    uci set wireless.@wifi-iface[1].disabled=0
+    uci set wireless.@wifi-iface[1].key="0908772939"
+    uci set wireless.@wifi-iface[1].ssid="cyphone_"$x
+    uci set wireless.@wifi-iface[1].mode="ap"
+    uci set wireless.@wifi-iface[1].network='lan'
+    uci commit wireless
+    wifi
+fi
+
 
 if [ "$do_action" == "True" ]; then
     echo "update"
